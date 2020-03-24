@@ -28,7 +28,9 @@
         ><span class="glyphicon glyphicon-edit"></span
       ></a>
       <p class="top-menu">
-        Hello {{ user.username }}
+        <a href="{% url 'profiles' pk=user.profile.id %}"
+          >Hello {{ user.username }}</a
+        >
         <small>(<a href="{% url 'logout' %}">Log out</a>)</small>
       </p>
       {% else %}

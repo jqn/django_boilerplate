@@ -3,12 +3,18 @@ from django.utils import timezone
 from .models import Post
 from .forms import PostForm
 from django.contrib.auth.decorators import login_required
+from django.views import View
+
+from django.contrib.auth.models import User
 
 
-def post_list(request):
-    posts = Post.objects.filter(
-        published_date__lte=timezone.now()).order_by('published_date')
-    return render(request, 'blog/post_list.html', {'posts': posts})
+class PostListView(View):
+    template_name = 'blog/post_list.html'
+
+    def get(self, request):
+        posts = Post.objects.filter(
+            published_date__lte=timezone.now()).order_by('published_date')
+        return render(request, self.template_name, {'posts': posts})
 
 
 def post_detail(request, pk):

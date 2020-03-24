@@ -37,8 +37,27 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog.apps.BlogConfig'
+    'blog.apps.BlogConfig',
+    'accounts.apps.AccountsConfig',
+    'profiles.apps.ProfilesConfig',
+    'social_django'
 ]
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = 'social_auth_key'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'social_auth_secret'
+
+SOCIAL_AUTH_POSTGRES_JSONFIELD = True
+
+LOGIN_URL = 'auth/login/google-oauth2/'
+
+LOGIN_REDIRECT_URL = 'accounts/login/'
+LOGOUT_REDIRECT_URL = 'logout'
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -77,8 +96,8 @@ WSGI_APPLICATION = 'app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'django_boilerplate',
-        'USER': 'user',
+        'NAME': 'database_name',
+        'USER': 'username',
         'PASSWORD': 'password',
         'HOST': 'localhost',
         'PORT': '',
@@ -123,5 +142,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 LOGIN_REDIRECT_URL = '/'
